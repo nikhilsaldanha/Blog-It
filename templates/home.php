@@ -1,5 +1,6 @@
 <html>
 	<head>
+		<base href="/Blog-It/" />
 		<meta charset="utf-8">
 		<title>Home</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -18,7 +19,7 @@
 								</ul>
 		            <ul class=\"nav navbar-nav navbar-right\">
 									<li>
-										<form class=\"navbar-form\" role=\"search\" action=\"/\" method=\"POST\">
+										<form class=\"navbar-form\" role=\"search\" action=\"index.php\" method=\"POST\">
 											<div class=\"form-group\">
 												<input type=\"text\" name=\"tag-search\" class=\"form-control\" placeholder=\"Search Posts By Tag\">
 											</div>
@@ -39,7 +40,7 @@
 						<a href=\"index.php\" class=\"navbar-brand\">Blog It!</a>
 						<ul class=\"nav navbar-nav navbar-right\">
 							<li>
-								<form class=\"navbar-form\" role=\"search\" action=\"/\" method=\"POST\">
+								<form class=\"navbar-form\" role=\"search\" action=\"index.php\" method=\"POST\">
 									<div class=\"form-group\">
 										<input type=\"text\" name=\"tag-search\" class=\"form-control\" placeholder=\"Search Posts By Tag\">
 									</div>

@@ -1,5 +1,6 @@
 <html>
   <head>
+    <base href="/Blog-It/" />
     <meta charset="utf-8">
     <title>
       <?php
@@ -23,7 +24,7 @@
 								</ul>
 		            <ul class=\"nav navbar-nav navbar-right\">
 									<li>
-										<form class=\"navbar-form\" role=\"search\" action=\"/\" method=\"POST\">
+										<form class=\"navbar-form\" role=\"search\" action=\"index.php\" method=\"POST\">
 											<div class=\"form-group\">
 												<input type=\"text\" name=\"tag-search\" class=\"form-control\" placeholder=\"Search Posts By Tag\">
 											</div>
@@ -44,7 +45,7 @@
             <a href=\"index.php\" class=\"navbar-brand\">Blog It!</a>
             <ul class=\"nav navbar-nav navbar-right\">
               <li>
-                <form class=\"navbar-form\" role=\"search\" action=\"/\" method=\"POST\">
+                <form class=\"navbar-form\" role=\"search\" action=\"index.php\" method=\"POST\">
                   <div class=\"form-group\">
                     <input type=\"text\" name=\"tag-search\" class=\"form-control\" placeholder=\"Search Posts By Tag\">
                   </div>
@@ -83,7 +84,7 @@
           $downvote = $post['downvote'];
       ?>
           <div class = "container col-md-2">
-            <form action="#up" method="POST">
+            <form action="post/<?php echo $post['id'] ?>#up" method="POST">
               <button type="submit" class="btn btn-default" name="upvote" value="1">
                 <?php echo $upvote; ?>
                 <span id="up" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
@@ -92,7 +93,7 @@
           </div>
 
           <div class = "container col-md-2">
-            <form action="#down" method="POST">
+            <form action="post/<?php echo $post['id'] ?>#down" method="POST">
               <button type="submit" class="btn btn-default" name="downvote" value="1">
                 <?php echo $downvote; ?>
                 <span id="down" class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
@@ -119,7 +120,7 @@
                     <td>
                       <div class="container col-md-10">
                         <!-- <tr> -->
-                          <a href="/author/<?php $author ?>"> <?php echo $name; ?> </a>says :
+                          <a href="author/<?php echo $author ?>"> <?php echo $name; ?> </a>says :
                         <!-- </tr> -->
                         <!-- <tr class="success"> -->
                           <?php
@@ -128,7 +129,7 @@
                         <!-- </tr> -->
                       </div>
                       <div class="col-md-2">
-                        <form action="/delete-comment/<?php echo $cid ?>" method="POST">
+                        <form action="delete-comment/<?php echo $cid ?>" method="POST">
                           <button type="submit" class="btn btn-default" name="delete-comment" value="<?php echo $__id ?>">
                             <span id="down" class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                           </button>
@@ -141,7 +142,7 @@
                       ?>
                       <div class="container">
                         <div class = "container col-md-1">
-                          <form action="#up-<?php echo $cid; ?>" method="POST">
+                          <form action="post/<?php echo $post['id'] ?>#up-<?php echo $cid; ?>" method="POST">
                             <button type="submit" class="btn btn-default" name="upvote-comment-<?php echo $cid; ?>" value="1">
                               <?php echo $upvote; ?>
                               <span id="up-<?php echo $cid; ?>" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
@@ -150,7 +151,7 @@
                         </div>
 
                         <div class = "container col-md-1">
-                          <form action="#down-<?php echo $cid ?>" method="POST">
+                          <form action="post/<?php echo $post['id'] ?>#down-<?php echo $cid ?>" method="POST">
                             <button type="submit" class="btn btn-default" name="downvote-comment-<?php echo $cid; ?>" value="1">
                               <?php echo $downvote; ?>
                               <span id="down-<?php echo $cid ?>" class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>

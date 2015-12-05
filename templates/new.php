@@ -1,5 +1,6 @@
 <html>
   <head>
+    <base href="/Blog-It/" />
     <meta charset="utf-8">
     <title>New Post</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">

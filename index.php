@@ -58,7 +58,7 @@ $app->post('/(index)?', function() use($app) {
 $app->get('/login', function() use($app) {
 	session_start();
 	if(isset($_SESSION['user_id'])) {
-		$app->redirect('/blog/index');
+		$app->redirect('/Blog-It/index');
 	}
 	$app->render('login.php');
 });
@@ -81,10 +81,10 @@ $app->post('/login', function() use($app) {
 				// session_start();
 				if(isset($_SESSION['current_page'])) {
 					echo $_SESSION['current_page'];
-					$app->redirect('/blog'.$_SESSION['current_page']);
+					$app->redirect('/Blog-It'.$_SESSION['current_page']);
 				}
 				else {
-					$app->redirect('/blog/me');
+					$app->redirect('/Blog-It/me');
 				}
       }
       else {
@@ -105,7 +105,7 @@ $app->get('/signup', function() use($app) {
 
 	session_start();
 	if(isset($_SESSION['user_id'])) {
-		$app->redirect('/blog/index');
+		$app->redirect('/Blog-Its/index');
 	}
 	else {
 		$app->render('signup.php', array('action' => $action, 'err' => $err));
@@ -135,7 +135,7 @@ $app->post('/signup', function() use($app) {
 
         if($result == 1) {
           //Succesful Signup, redirect to login to confirm registration
-          $app->redirect('/blog/login');
+          $app->redirect('/Blog-It/login');
         }
         elseif(explode(' ', $result)[0] == 'Duplicate') {
           $err['duplicate'] = 1;
@@ -194,7 +194,7 @@ $app->post('/signup', function() use($app) {
 $app->get('/logout', function() use($app) {
 	session_start();
   session_destroy();
-	$app->redirect('/blog/index');
+	$app->redirect('/Blog-It/index');
 });
 
 /*
@@ -289,11 +289,11 @@ $app->post('/post/:id', function($pid) use($app) {
 	$req = $app->request();
 	if($req->post('upvote')) {
 		$post->upVote($pid);
-		$app->redirect('/blog/post/'.$pid.'#up');
+		$app->redirect('/Blog-It/post/'.$pid.'#up');
 	}
 	elseif($req->post('downvote')) {
 		$post->downVote($pid);
-		$app->redirect('/blog/post/'.$pid.'#down');
+		$app->redirect('/Blog-It/post/'.$pid.'#down');
 	}
 	elseif($req->post('new-comment')) {
 		require_once 'core/comment.inc.php';
@@ -307,9 +307,9 @@ $app->post('/post/:id', function($pid) use($app) {
 
 		$result=$comment->putComment(array('body' => $comment_body,'author_id' => $author_id ,'post_id'=>$post_id ));
 		if($result){
-			$app->redirect("/blog/post/".$pid);
+			$app->redirect("/Blog-It/post/".$pid);
 		}else{
-			$app->redirect("/blog/post/".$pid,array('err' =>1 ));
+			$app->redirect("/Blog-It/post/".$pid,array('err' =>1 ));
 		}
 	}
 	else {
@@ -330,7 +330,7 @@ $app->post('/post/:id', function($pid) use($app) {
 				echo "downvote on $cid";
 				$comment->downVote($cid);
 			}
-			$app->redirect('/blog/post/'.$pid);
+			$app->redirect('/Blog-It/post/'.$pid);
 		}
 	}
 	// elseif($app->request()->post("upvote-comment-$cid"))
@@ -347,7 +347,7 @@ $app->get('/new-post', function() use($app) {
 	}
 	else {
 		$_SESSION['current_page'] = '/new-post';
-		$app->redirect('/blog/login-to-continue');
+		$app->redirect('/Blog-It/login-to-continue');
 	}
 });
 
@@ -369,7 +369,7 @@ $app->post('/new-post', function() use($app) {
 		if(gettype($result) == 'integer') {
 			// print_r($tags);
 			$tag->addTags($result, $tags);
-			$app->redirect('/blog/post/'.$result);
+			$app->redirect('/Blog-It/post/'.$result);
 		}
 		else {
 			$app->render('new.php', array('err'=>'There was an error adding your post. Please try again later.'));
@@ -400,7 +400,7 @@ $app->post('/delete-post/:id', function($id) use($app) {
 
 		$post = new Post;
 		$post->deletePost($id);
-		$app->redirect('/blog/me');
+		$app->redirect('/Blog-It/me');
 	}
 });
 
@@ -411,7 +411,7 @@ $app->post('/delete-comment/:id', function($id) use($app) {
 		require_once 'core/comment.inc.php';
 		$post = new Comment;
 		$post->deleteComment($id);
-		$app->redirect("/blog/post/".$req->post('delete-comment'));
+		$app->redirect("/Blog-It/post/".$req->post('delete-comment'));
 	}
 });
 
