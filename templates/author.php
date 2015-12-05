@@ -21,90 +21,95 @@
   <body>
     <?php
       if($loggedIn) {
-            echo "<nav class=\"navbar navbar-default\">
-              <div class=\"container-fluid\">
-                <a href=\"index.php\" class=\"navbar-brand\">Blog It!</a>
-                <ul class=\"nav navbar-nav navbar-right\">
-                  <li>
-                    <form class=\"navbar-form\" role=\"search\" action=\"index.php\" method=\"POST\">
-                      <div class=\"form-group\">
-                        <input type=\"text\" name=\"tag-search\" class=\"form-control\" placeholder=\"Search Posts By Tag\">
-                      </div>
-                      <button type=\"submit\" class=\"btn btn-default\">
-                        <span class=\"glyphicon glyphicon-search\"></span>
-                      </button>
-                    </form>
-                  </li>
-                  <li><a href=\"new-post\">Add a new Post</a></li>
-                  <li><a href=\"logout\">Logout</a></li>
-                </ul>
+    ?>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <a href="index.php" class="navbar-brand">Blog It!</a>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <form class="navbar-form" role="search" action="index.php" method="POST">
+              <div class="form-group">
+                <input type="text" name="tag-search" class="form-control" placeholder="Search Posts By Tag">
               </div>
-            </nav>";
+              <button type="submit" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span>
+              </button>
+            </form>
+          </li>
+          <li><a href="new-post">Add a new Post</a></li>
+          <li><a href="logout">Logout</a></li>
+        </ul>
+      </div>
+    </nav>;
+    <?php
       }
       else {
-        echo "<nav class=\"navbar navbar-default\">
-          <div class=\"container-fluid\">
-            <a href=\"index.php\" class=\"navbar-brand\">Blog It!</a>
-            <ul class=\"nav navbar-nav navbar-right\">
-              <li>
-                <form class=\"navbar-form\" role=\"search\" action=\"index.php\" method=\"POST\">
-                  <div class=\"form-group\">
-                    <input type=\"text\" name=\"tag-search\" class=\"form-control\" placeholder=\"Search Posts By Tag\">
-                  </div>
-                  <button type=\"submit\" class=\"btn btn-default\">
-                    <span class=\"glyphicon glyphicon-search\"></span>
-                  </button>
-                </form>
-              </li>
-              <li><a href=\"new-post\">Add a new Post</a></li>
-              <li><a href=\"login\">Login</a></li>
-              <li><a href=\"signup\">Signup</a></li>
-            </ul>
-          </div>
-        </nav>";
-      }
-      ?>
-      <div class="container">
-
-        <?php
-        $auth = $user_result_set['name'];
-        echo "<h2 class=\"author-name\">$auth</h2>";
-
-        if($empty) {
-          echo "<em>This user has yet to put up any posts</em><br>";
-        }
-        else {
-          while($result_set=$postDetails->fetch_assoc()) {
-            $title = $result_set['title'];
-            $body = $result_set['body'];
-            $author_id = $result_set['author_id'];
-            $date = $result_set['date'];
-            $id = $result_set['id'];
-
-            echo "
-            <div class=\"post\">
-              <div class=\"post-head\">
-                <div class=\"col-md-10\">
-                  <a href=\"post/$id\"><h3 class=\"post-title\">$title</h3></a>
-                </div>
-                ";
-                if($loggedIn) {
-                  echo "<div class=\"col-md-2\">
-                    <form action=\"delete-post/$id\" method=\"POST\">
-                      <button type=\"submit\" class=\"btn btn-default\" name=\"delete-post\" value=\"1\">
-                        <span id=\"down\" class=\"glyphicon glyphicon-remove-sign\" aria-hidden=\"true\"></span>
-                      </button>
-                    </form>
-                  </div>";
-
-                }
-              echo "
-              <span class=\"post-date\">$date</span>
+    ?>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <a href="index.php" class="navbar-brand">Blog It!</a>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <form class="navbar-form" role="search" action="index.php" method="POST">
+              <div class="form-group">
+                <input type="text" name="tag-search" class="form-control" placeholder="Search Posts By Tag">
               </div>
-            </div><hr>";
+              <button type="submit" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span>
+              </button>
+            </form>
+          </li>
+          <li><a href="new-post">Add a new Post</a></li>
+          <li><a href="login">Login</a></li>
+          <li><a href="signup">Signup</a></li>
+        </ul>
+      </div>
+    </nav>;
+    <?php
+      }
+    ?>
+    <div class="container">
+      <h2 class="author-name"><?php echo $user_result_set['name'] ?></h2>
+        <?php
+          if($empty) {
+        ?>
+        <em>This user has yet to put up any posts</em><br>
+        <?php
           }
-        }
-      ?>
+          else {
+            while($result_set=$postDetails->fetch_assoc()) {
+              $title = $result_set['title'];
+              $body = $result_set['body'];
+              $author_id = $result_set['author_id'];
+              $date = $result_set['date'];
+              $id = $result_set['id'];
+        ?>
+        <div class="post">
+          <div class="post-head">
+            <div class="col-md-10">
+              <a href="post/<?php echo $id ?>"><h3 class="post-title"><?php echo $title ?></h3></a>
+            </div>
+            <?php
+              if($loggedIn) {
+            ?>
+            <div class="col-md-2">
+              <form action="delete-post/<?php echo $id?>" method="POST">
+                <button type="submit" class="btn btn-default" name="delete-post" value="1">
+                  <span id="down" class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                </button>
+              </form>
+            </div>
+            <?php
+              }
+            ?>
+            <span class="post-date"><?php echo $date ?></span>
+              </div>
+            </div>
+            <hr>
+            <?php
+                }
+              }
+            ?>
     </div>
   </body>
 </html>

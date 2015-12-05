@@ -6,16 +6,41 @@
   </head>
   <body>
     <?php
-
       if($loggedIn) {
-        echo "<table class=\"navbar\"><tbody><tr><td><a href=\"logout\">Logout</a></td></tr></tbody></table><hr><br>";
+    ?>
+    <table class="navbar">
+      <tbody>
+        <tr>
+          <td>
+            <a href="logout">Logout</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <hr><br>
+    <?php
       }
       else {
-        echo "<table class=\"navbar\"><tbody><tr><td><a href=\"login\">Login</a></td><td>|</td><td><a href=\"signup\">Signup</a></td></tr></tbody></table><hr>";
+    ?>
+    <table class="navbar">
+      <tbody>
+        <tr>
+          <td>
+            <a href="login">Login</a>
+          </td>
+          <td>|</td>
+          <td>
+            <a href="signup">Signup</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <hr>
+    <?php
       }
     ?>
     <h1>404 Not Found</h1>
     This page doesn't exist.<br>You must be lost.
-    Try finding your way from <a href="/">here<a>
+    Try finding your way from <a href="index.php">here<a>
   </body>
 </html>
