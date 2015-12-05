@@ -1,5 +1,6 @@
 <html>
   <head>
+    <base href="/Blog-It/" />
     <title>404 Not Found</title>
     <!-- <link rel="stylesheet" type="text/css" href="css/login_s.css"> -->
   </head>

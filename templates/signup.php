@@ -1,5 +1,6 @@
 <html>
   <head>
+    <base href="/Blog-It/" />
     <meta charset="utf-8">
     <title>Signup</title>
     <!-- <link rel="stylesheet" type="text/css" href="css/signup_s.css"> -->
