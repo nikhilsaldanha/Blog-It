@@ -3,7 +3,7 @@
 
 <?php
 $_ENV['SLIM_MODE'] = 'development';
-require '/vendor/autoload.php';
+require './opt/lampp/Blog-It/vendor/autoload.php';
 
 $app = new \Slim\Slim(array(
 	'debug'=>true,
