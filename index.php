@@ -1,5 +1,5 @@
-//Routing management and request processing unit
-//Uses slim framework for routing management
+<!-- Routing management and request processing unit -->
+<!-- Uses slim framework for routing management -->
 
 <?php
 $_ENV['SLIM_MODE'] = 'development';
