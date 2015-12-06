@@ -1,8 +1,7 @@
-
+<!-- Routing management and request processing unit -->
+<!-- Uses slim framework for routing management -->
 
 <?php
-// Routing management and request processing unit
-// Uses slim framework for routing management
 $_ENV['SLIM_MODE'] = 'development';
 require 'vendor/autoload.php';
 
