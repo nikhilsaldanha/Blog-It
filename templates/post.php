@@ -14,9 +14,16 @@
       <div class="container-fluid">
         <a href="index.php" class="navbar-brand">Blog It!</a>
 				<ul class="nav navbar-nav navbar-left">
-					<li>
-					  <a href="author/$uid">My Posts</a>
-					</li>
+          <?php
+            if(isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
+              $uid = $_SESSION['user_id'];
+          ?>
+              <li>
+                <a href="author/<?php echo $uid; ?>">My Posts</a>
+              </li>
+          <?php
+            }
+          ?>
 				</ul>
         <ul class="nav navbar-nav navbar-right">
 					<li>
