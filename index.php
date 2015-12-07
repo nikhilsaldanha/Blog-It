@@ -282,6 +282,7 @@ $app->post('/follow/:id',function($f_id) use($app){
  		echo "Error";
  		die("Inserttion failed");
  	}
+ 	//finally redirect the user to the same page
  $app->redirect('/Blog-It/author/'.$f_id);
 
 });
