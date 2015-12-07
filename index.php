@@ -29,7 +29,7 @@ $app->get('/(index)?', function() use($app) {
 		$loggedIn = 1;
 	}
 	$result = $post->getTopPosts();
-	$app->render('home.php', array('user'=>$user, 'loggedIn' => $loggedIn, 'result' => $result,'comment'=>$comment,'tag'=>$tag));
+	$app->render('home.php', array('user'=>$user, 'loggedIn' => $loggedIn, 'result' => $result,'comment'=>$comment));
 });
 
 $app->post('/(index)?', function() use($app) {
@@ -298,10 +298,12 @@ $app->get('/post/:id', function($pid) use($app) {
 	require_once 'core/user.inc.php';
 	require_once 'core/post.inc.php';
 	require_once 'core/comment.inc.php';
+	require_once 'core/tag.inc.php';
 
 	$user = new User;
 	$post = new Post;
 	$comment = new Comment;
+	$tag = new Tag;
 	$post_cur = $post->getPost($pid);
 
 	$loggedIn = 0;
@@ -317,11 +319,11 @@ $app->get('/post/:id', function($pid) use($app) {
 
 
 		}
-				$comments=$comment->getComments($pid);
-
+		$comments=$comment->getComments($pid);
+		$tag_result=$tag->getTagsByPostId($pid);
 		$post = $post_cur->fetch_assoc();
 		$name = $user->getName($post['author_id'])->fetch_assoc()['name'];
-		$app->render('post.php',array('post'=>$post, 'name'=>$name, 'loggedIn'=>$loggedIn,'comment'=>$comments,'user'=>$user));
+		$app->render('post.php',array('post'=>$post, 'name'=>$name, 'loggedIn'=>$loggedIn,'comment'=>$comments,'user'=>$user,'tag_result'=>$tag_result));
 	}
 });
 

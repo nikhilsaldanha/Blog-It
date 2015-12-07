@@ -63,7 +63,18 @@
       <small class="author-name post-date">
         by <a href="author/<?php echo $post['author_id'];?>"><?php echo $name; ?></a>.
         Posted at <?php echo $post['date'];?>
-      </small>
+        </small>
+        <?php
+                  while($tags=$tag_result->fetch_array()[0]) {
+                ?>
+                    <span class="label label-primary">
+                      <?php echo $tags; ?>
+                    </span>&nbsp
+                <?php
+                  }
+                ?>
+        
+      
       <hr>
       <div class="post-body">
         <h5>
