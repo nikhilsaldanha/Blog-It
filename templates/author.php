@@ -41,7 +41,7 @@
           <li><a href="logout">Logout</a></li>
         </ul>
       </div>
-    </nav>;
+    </nav>
     <?php
       }
       else {
@@ -72,9 +72,9 @@
     <div class="container">
       <div class = "container">
       <h2 class="col-md-10"><?php echo $user_result_set['name'] ?></h2>
-      <?php 
+      <?php
           $uid = $user_result_set['id'];
-          
+
           if(isset($itsme) && $itsme == 1){
             echo "
               <form>
@@ -124,7 +124,7 @@
               <a href="post/<?php echo $id ?>"><h3 class="post-title"><?php echo $title ?></h3></a>
             </div>
             <?php
-              if($loggedIn) {
+              if($loggedIn && isset($itsme) && $itsme == 1) {
             ?>
             <div class="col-md-2">
               <form action="delete-post/<?php echo $id?>" method="POST">
