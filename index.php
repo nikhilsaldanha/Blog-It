@@ -57,7 +57,7 @@ $app->post('/(index)?', function() use($app) {
 	while($pid = $result->fetch_array()[0]) {
 		array_push($posts, $post->getPost($pid));
 	}
-	$app->render('home.php',array('user'=>$user, 'tag_search_result'=>$posts, 'loggedIn'=>$loggedIn, 'comment'=>$comment));
+	$app->render('home.php',array('user'=>$user, 'tag_search_result'=>$posts, 'loggedIn'=>$loggedIn, 'comment'=>$comment, 'tag'=>$tag));
 });
 
 $app->get('/login', function() use($app) {
