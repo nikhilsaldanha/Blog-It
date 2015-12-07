@@ -214,16 +214,18 @@ $app->get('/me', function() use($app) {
   $post = new Post;
   $follower = new Follower;
 	$loggedIn = 0;
+	$fol_count = 0;
 	$fid_s = NULL;
 	session_start();
   if($user->isLoggedIn()) {
     $loggedIn = 1;
+    $fol_count = $follower->getCount();
     $fid_s = $follower->getFollowersId($_SESSION['user_id']);
 
   }
   $postDetails = $post->getTopPostsByUser($_SESSION['user_id']);
   $userDetails = $user->getUser($_SESSION['user_id']);
-  $app->render('author.php', array('loggedIn' => $loggedIn, 'postDetails' => $postDetails, 'userDetails' => $userDetails, 'empty' => 0, 'fid_s'=>$fid_s));
+  $app->render('author.php', array('loggedIn' => $loggedIn, 'postDetails' => $postDetails,'fol_count'=>$fol_count, 'userDetails' => $userDetails, 'empty' => 0, 'fid_s'=>$fid_s));
 });
 
 /*
@@ -284,7 +286,7 @@ $app->post('/follow/:id',function($f_id) use($app){
  		echo "Error";
  		die("Inserttion failed");
  	}
- 	//finally redirect the user to the same page
+ 	//finally redirect the user to the same
  $app->redirect('/Blog-It/author/'.$f_id);
 
 });

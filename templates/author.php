@@ -74,7 +74,16 @@
       <h2 class="col-md-10"><?php echo $user_result_set['name'] ?></h2>
       <?php 
           $uid = $user_result_set['id'];
-          if($isFollowing && !isset($itsme)){
+          
+          if(isset($itsme) && $itsme == 1){
+            echo "
+              <form>
+                <button type=\"submit\" class=\"btn btn-info\">
+                   $fol_count Followers
+                </button>
+              </form>
+            ";
+          }elseif($isFollowing && !isset($itsme)){
             echo "
               <form>
                 <button type=\"submit\" class=\"btn btn-info\">
@@ -87,14 +96,6 @@
               <form action=\"follow/$uid\" method=\"POST\">
                 <button type=\"submit\" class=\"btn btn-primary\" name=\"follow\" value=\"1\">
                    + Follow
-                </button>
-              </form>
-            ";
-          }elseif(isset($itsme) && $itsme == 1){
-            echo "
-              <form>
-                <button type=\"submit\" class=\"btn btn-info\">
-                   $fol_count Followers
                 </button>
               </form>
             ";
