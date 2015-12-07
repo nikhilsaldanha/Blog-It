@@ -31,5 +31,11 @@
       $result = $this->mysqli->query($query);
       return $result;
     }
+
+    public function getTagsByPostId($post_id) {
+      $query = "SELECT tag FROM tag WHERE post_id='$post_id'";
+      $result = $this->mysqli->query($query);
+      return $result;
+    }
   }
 ?>

@@ -16,10 +16,12 @@ $app->get('/(index)?', function() use($app) {
   require_once 'core/user.inc.php';
   require_once 'core/post.inc.php';
   require_once 'core/comment.inc.php';
+  require_once 'core/tag.inc.php';
   // $db = Db::getInstance();
   $user = new User;
   $post = new Post;
   $comment = new Comment;
+	$tag = new Tag;
 	$loggedIn = 0;
 
 	session_start();
@@ -27,7 +29,7 @@ $app->get('/(index)?', function() use($app) {
 		$loggedIn = 1;
 	}
 	$result = $post->getTopPosts();
-	$app->render('home.php', array('user'=>$user, 'loggedIn' => $loggedIn, 'result' => $result,'comment'=>$comment));
+	$app->render('home.php', array('user'=>$user, 'loggedIn' => $loggedIn, 'result' => $result,'comment'=>$comment,'tag'=>$tag));
 });
 
 $app->post('/(index)?', function() use($app) {
@@ -310,7 +312,7 @@ $app->get('/post/:id', function($pid) use($app) {
 		session_start();
 		if($user->isLoggedIn()) {
 			$loggedIn = 1;
-	
+
 
 		}
 				$comments=$comment->getComments($pid);

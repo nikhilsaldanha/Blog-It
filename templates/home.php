@@ -66,6 +66,7 @@
 						$upvote=$result_set['upvote'];
 						$downvote=$result_set['downvote'];
 						$c_count=$comment->getCommentCount($id)->fetch_array()[0];
+						$tag_result=$tag->getTagsByPostId($id);
 			?>
 		        <div id="post">
 		          <div id="post-head">
@@ -74,6 +75,16 @@
 					        by <a href="author/<?php echo $author_id ?>"><?php echo $name ?></a>.
 					        Posted at <?php echo $date ?>
 					      </small>
+
+									<?php
+										while($tags=$tag_result->fetch_array()[0]) {
+									?>
+											<span class="label label-primary">
+												<?php echo $tags; ?>
+											</span>&nbsp
+									<?php
+										}
+									?>
 								<br>
 		          </div>
 
@@ -113,11 +124,21 @@
 						$upvote=$post['upvote'];
 						$downvote=$post['downvote'];
 						$c_count=$comment->getCommentCount($id)->fetch_array()[0];
+						$tag_result=$tag->getTagsByPostId($id);
 			?>
         		<div id="post">
           		<div id="post-head">
             		<h3 id="post-title"><?php echo $title ?></h3>
             		<small id="post-date"><?php echo $date ?></small>
+								<?php
+									while($tags=$tag_result->fetch_array()[0]) {
+								?>
+										<span class="label label-primary">
+											<?php echo $tags; ?>
+										</span>&nbsp
+								<?php
+									}
+								?>
           		</div>
 							<div id="post-body"><?php echo $body?>...
 								<a href="post/<?php echo $id ?>">Read more</a>
