@@ -77,7 +77,7 @@
           if($isFollowing && !isset($itsme)){
             echo "
               <form>
-                <button type=\"submit\" class=\"btn btn-default\">
+                <button type=\"submit\" class=\"btn btn-info\">
                    Following
                 </button>
               </form>
@@ -85,7 +85,7 @@
           }elseif($loggedIn && !$isFollowing && !isset($itsme)){
             echo "
               <form action=\"follow/$uid\" method=\"POST\">
-                <button type=\"submit\" class=\"btn btn-default\" name=\"follow\" value=\"1\">
+                <button type=\"submit\" class=\"btn btn-primary\" name=\"follow\" value=\"1\">
                    + Follow
                 </button>
               </form>
@@ -93,7 +93,7 @@
           }elseif(isset($itsme) && $itsme == 1){
             echo "
               <form>
-                <button type=\"submit\" class=\"btn btn-default\">
+                <button type=\"submit\" class=\"btn btn-info\">
                    $fol_count Followers
                 </button>
               </form>
