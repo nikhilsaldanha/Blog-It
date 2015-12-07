@@ -206,17 +206,22 @@ $app->get('/logout', function() use($app) {
 $app->get('/me', function() use($app) {
   require_once 'core/user.inc.php';
   require_once 'core/post.inc.php';
+  require_once 'core/followers.inc.php';
 
   $user = new User;
   $post = new Post;
+  $follower = new Follower;
 	$loggedIn = 0;
+	$fid_s = NULL;
 	session_start();
   if($user->isLoggedIn()) {
     $loggedIn = 1;
+    $fid_s = $follower->getFollowersId($_SESSION['user_id']);
+
   }
   $postDetails = $post->getTopPostsByUser($_SESSION['user_id']);
   $userDetails = $user->getUser($_SESSION['user_id']);
-  $app->render('author.php', array('loggedIn' => $loggedIn, 'postDetails' => $postDetails, 'userDetails' => $userDetails, 'empty' => 0));
+  $app->render('author.php', array('loggedIn' => $loggedIn, 'postDetails' => $postDetails, 'userDetails' => $userDetails, 'empty' => 0, 'fid_s'=>$fid_s));
 });
 
 /*
@@ -229,7 +234,7 @@ $app->get('/author/:id', function($uid) use($app) {
   $user = new User;
   $post = new Post;
   $follower = new Follower;
-
+  	$fol_count = 0;
 	$loggedIn = 0;
 	$empty = 0;
 
@@ -252,20 +257,41 @@ $app->get('/author/:id', function($uid) use($app) {
 
   	if($loggedIn){
   		$isFollowing=$follower->isFollowing($uid);
+  		$fol_count = $follower->getCount();
   	}
 
 	if(!$userDetails->num_rows == 0) {
 
-		$app->render('author.php', array('loggedIn' => $loggedIn, 'postDetails' => $postDetails, 'userDetails' => $userDetails, 'empty' => $empty, 'isFollowing' => $isFollowing,'follower'=>$follower));
+		$app->render('author.php', array('loggedIn' => $loggedIn, 'fol_count'=>$fol_count,'postDetails' => $postDetails, 'userDetails' => $userDetails, 'empty' => $empty, 'isFollowing' => $isFollowing,'follower'=>$follower));
 	}
 
 });
 
 
+//Handle follow request
+
+$app->post('/follow/:id',function($f_id) use($app){
+
+ require_once 'core/followers.inc.php';
+ $follower = new Follower;
+
+ session_start();
+ //add logged in user as a follower of the author : f_id
+ if($follower->followMe($f_id,$_SESSION['user_id'])){}
+ 	else{
+ 		echo "Error";
+ 		die("Inserttion failed");
+ 	}
+ $app->redirect('/Blog-It/author/'.$f_id);
+
+});
+
+
+
+
 $app->get('/post/:id', function($pid) use($app) {
 	require_once 'core/user.inc.php';
 	require_once 'core/post.inc.php';
-
 	require_once 'core/comment.inc.php';
 
 	$user = new User;
@@ -283,6 +309,8 @@ $app->get('/post/:id', function($pid) use($app) {
 		session_start();
 		if($user->isLoggedIn()) {
 			$loggedIn = 1;
+	
+
 		}
 				$comments=$comment->getComments($pid);
 

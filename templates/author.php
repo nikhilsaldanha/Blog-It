@@ -8,6 +8,7 @@
         $user_result_set = $userDetails->fetch_assoc();
         if(isset($_SESSION['user_id']) && $_SESSION['user_id'] == $user_result_set['id']) {
           echo 'Me';
+          $itsme = 1;
         }
         else {
           echo $user_result_set['name'];
@@ -72,9 +73,8 @@
       <div class = "container">
       <h2 class="col-md-10"><?php echo $user_result_set['name'] ?></h2>
       <?php 
-          $uid = $_SESSION['user_id'];
-
-          if(1){
+          $uid = $user_result_set['id'];
+          if($isFollowing && !isset($itsme)){
             echo "
               <form>
                 <button type=\"submit\" class=\"btn btn-default\">
@@ -82,11 +82,19 @@
                 </button>
               </form>
             ";
-          }elseif($loggedIn){
+          }elseif($loggedIn && !$isFollowing && !isset($itsme)){
             echo "
-              <form action=\"follow/<?php echo $uid?>\" method=\"POST\">
+              <form action=\"follow/$uid\" method=\"POST\">
                 <button type=\"submit\" class=\"btn btn-default\" name=\"follow\" value=\"1\">
                    + Follow
+                </button>
+              </form>
+            ";
+          }elseif(isset($itsme) && $itsme == 1){
+            echo "
+              <form>
+                <button type=\"submit\" class=\"btn btn-default\">
+                   $fol_count Followers
                 </button>
               </form>
             ";
