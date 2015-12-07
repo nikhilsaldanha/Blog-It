@@ -225,8 +225,10 @@ $app->get('/me', function() use($app) {
 $app->get('/author/:id', function($uid) use($app) {
   require_once 'core/user.inc.php';
   require_once 'core/post.inc.php';
+  require_once 'core/followers.inc.php';
   $user = new User;
   $post = new Post;
+  $follower = new Follower;
 
 	$loggedIn = 0;
 	$empty = 0;
@@ -244,13 +246,17 @@ $app->get('/author/:id', function($uid) use($app) {
 	}
 
 	session_start();
-  if($user->isLoggedIn()) {
-    $loggedIn = 1;
-  }
+ 	if($user->isLoggedIn()) {
+    	$loggedIn = 1;
+  	}
+
+  	if($loggedIn){
+  		$isFollowing=$follower->isFollowing($uid);
+  	}
 
 	if(!$userDetails->num_rows == 0) {
 
-		$app->render('author.php', array('loggedIn' => $loggedIn, 'postDetails' => $postDetails, 'userDetails' => $userDetails, 'empty' => $empty));
+		$app->render('author.php', array('loggedIn' => $loggedIn, 'postDetails' => $postDetails, 'userDetails' => $userDetails, 'empty' => $empty, 'isFollowing' => $isFollowing,'follower'=>$follower));
 	}
 
 });

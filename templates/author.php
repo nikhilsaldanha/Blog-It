@@ -11,7 +11,7 @@
         }
         else {
           echo $user_result_set['name'];
-        }
+         }
       ?>
     </title>
 
@@ -69,7 +69,32 @@
       }
     ?>
     <div class="container">
-      <h2 class="author-name"><?php echo $user_result_set['name'] ?></h2>
+      <div class = "container">
+      <h2 class="col-md-10"><?php echo $user_result_set['name'] ?></h2>
+      <?php 
+          $uid = $_SESSION['user_id'];
+
+          if(1){
+            echo "
+              <form>
+                <button type=\"submit\" class=\"btn btn-default\">
+                   Following
+                </button>
+              </form>
+            ";
+          }elseif($loggedIn){
+            echo "
+              <form action=\"follow/<?php echo $uid?>\" method=\"POST\">
+                <button type=\"submit\" class=\"btn btn-default\" name=\"follow\" value=\"1\">
+                   + Follow
+                </button>
+              </form>
+            ";
+          }
+
+
+      ?>
+    </div>
         <?php
           if($empty) {
         ?>
